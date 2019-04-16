@@ -14,14 +14,14 @@ const LoggedOutRoutes = () => <>
 </>
 
 
-const AppRouter = ({isLoggerIn}) => 
+const AppRouter = ({isLoggedIn}) => 
 <Router>
-<Switch>{isLoggerIn?<LoggedInRoutes /> : <LoggedOutRoutes /> }</Switch>
+<Switch>{isLoggedIn?<LoggedInRoutes /> : <LoggedOutRoutes /> }</Switch>
 </Router>
 
 
 AppRouter.propTypes = {
-    isLoggerIn: Proptypes.bool.isRequired
+    isLoggedIn: Proptypes.bool.isRequired
 }
 
 export default AppRouter;
