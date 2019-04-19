@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 const Footer = styled.footer`
   display: flex;
-  justify-content: space-between;
+  justify-self: center;
+  align-self:flex-end;
+  justify-content: center;
   align-items: center;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
-  margin: 50px 0px;
+  margin: 25px 0px;
 `;
 
 const List = styled.ul`
@@ -27,43 +29,17 @@ const Link = styled.a`
 
 const Copyright = styled.span`
   color: ${props => props.theme.darkGreyColor};
+  margin-left: 50px;
 `;
 
 export default () => (
   <Footer>
     <List>
       <ListItem>
-        <Link href="#">about us</Link>
+        <Link href="#">about me</Link>
       </ListItem>
       <ListItem>
         <Link href="#">support</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">press</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">api</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">jobs</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">privacy</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">terms</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">directory</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">profiles</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">hashtags</Link>
-      </ListItem>
-      <ListItem>
-        <Link href="#">language</Link>
       </ListItem>
     </List>
     <Copyright>Inssagram {new Date().getFullYear()} &copy;</Copyright>

@@ -30,8 +30,8 @@ const Link = styled.span`
 `;
 
 const Form = styled(Box)`
-  padding: 40px;
-  padding-bottom: 30px;
+  padding: 25px;
+  padding-bottom: 25px;
   margin-bottom: 15px;
   form {
     width: 100%;
@@ -42,14 +42,14 @@ const Form = styled(Box)`
       }
     }
     button {
-      margin-top: 10px;
+      margin-top: 15px;
     }
   }
 `;
 
 export default (
 {
-   action, userName, firstName, lastName, email, setAction, onLogin
+   action, userName, firstName, lastName, email, setAction, onSubmit
 }    
 ) => {
   
@@ -58,13 +58,13 @@ export default (
     <Wrapper>
       <Form>
         {action === "logIn" ? (
-          <form onSubmit={onLogin}>
+          <form onSubmit={onSubmit}>
             <Input placeholder={"Email"} {...email} type="email" />
             
             <Button text={"Log in"} />
           </form>
         ) : (
-          <form onSubmit={onLogin}>
+          <form onSubmit={onSubmit}>
             <Input placeholder={"First name"} {...firstName} />
             <Input placeholder={"Last name"} {...lastName} />
             <Input placeholder={"Email"} {...email} type="email" />
