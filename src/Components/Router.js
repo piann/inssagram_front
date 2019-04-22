@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line 
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import Proptypes from "prop-types";
 import React from "react";
@@ -15,9 +16,9 @@ const LoggedOutRoutes = () => <>
 
 
 const AppRouter = ({isLoggedIn}) => 
-<Router>
+
 <Switch>{isLoggedIn?<LoggedInRoutes /> : <LoggedOutRoutes /> }</Switch>
-</Router>
+
 
 
 AppRouter.propTypes = {

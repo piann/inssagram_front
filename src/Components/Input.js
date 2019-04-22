@@ -10,6 +10,7 @@ const Container = styled.input`
   height: 35px;
   font-size: 12px;
   padding: 0px 15px;
+  max-width: 35vw;
 `;
 
 const Input = ({
@@ -18,7 +19,8 @@ const Input = ({
   value,
   onChange,
   type = "text",
-  className
+  className,
+  maxLength = 500
 }) => (
   <Container
     className={className}
@@ -27,6 +29,7 @@ const Input = ({
     value={value}
     onChange={onChange}
     type={type}
+    maxLength={maxLength}
   />
 );
 
@@ -35,7 +38,8 @@ Input.propTypes = {
   required: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
+  maxLength : PropTypes.number
 };
 
 export default Input;

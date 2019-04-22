@@ -9,6 +9,7 @@ export default {
     redColor:"#ED4956",
     blueColor:"#3897f0",
     darkBlueColor:"#003569",
+    maxWidth: "935px",
     boxBorder: BOX_BORDER,
     borderRadius: BORDER_RADIUS,
     whiteBox : `border:${BORDER_RADIUS};
