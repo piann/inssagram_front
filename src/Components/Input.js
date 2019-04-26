@@ -10,7 +10,6 @@ const Container = styled.input`
   height: 35px;
   font-size: 12px;
   padding: 0px 15px;
-  max-width: 35vw;
 `;
 
 const Input = ({
@@ -20,7 +19,8 @@ const Input = ({
   onChange,
   type = "text",
   className,
-  maxLength = 500
+  maxLength=500
+  
 }) => (
   <Container
     className={className}
@@ -30,6 +30,7 @@ const Input = ({
     onChange={onChange}
     type={type}
     maxLength={maxLength}
+    
   />
 );
 

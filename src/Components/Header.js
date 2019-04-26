@@ -73,7 +73,7 @@ export default () => {
                 </HeaderColumn>
                 <HeaderColumn>
                     <form>
-                        <SearchInput {...search} placeholder="search" maxLength="12"/>
+                        <SearchInput {...search} placeholder="search" maxLength={15}/>
                     </form>
                 </HeaderColumn>
                 <HeaderColumn>

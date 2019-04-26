@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import useInput from "../../Hooks/useInput";
 import AuthPresenter from "./AuthPresenter"
-import { LOG_IN, CREATE_ACCOUNT } from "./AuthQueries";
+import { LOG_IN, CREATE_ACCOUNT, LOCAL_LOG_IN, CONFIRM_SECRET } from "./AuthQueries";
 import { useMutation } from "react-apollo-hooks";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,6 +22,7 @@ export default () => {
     const firstName = useInput("");
     const lastName = useInput("");
     const email = useInput("");
+    const secret = useInput("");
     const requestSecretMutation = useMutation(LOG_IN, {
         variables:{ email:email.value },
         update:(_, {data}) => {
@@ -51,7 +52,14 @@ export default () => {
             
             }
         }
-    })
+    });
+    const confirmSecretMutation = useMutation(CONFIRM_SECRET, {
+        variables: {
+          email: email.value,
+          secret: secret.value
+        }
+      });
+      const localLogInMutation = useMutation(LOCAL_LOG_IN);
 
   const onSubmit = async (e) => {
       e.preventDefault();
@@ -59,13 +67,22 @@ export default () => {
           if(email !== ""){
               try{
 
-                  await requestSecretMutation();
+                const { data: { requestSecret }} = await requestSecretMutation();
+                console.log(requestSecret)
+                if (!requestSecret) {
+                    toast.error("You dont have an account yet, create one",toastOpt);
+                    setTimeout(() => setAction("signUp"), 3000);
+                  } else {
+                    toast.success("Check your inbox for your login secret",toastOpt);
+                    setAction("confirm");
+                  }
               } catch {
                   toast.error("Fail to login. Try again",toastOpt)
               }
           } else{
             toast.error("Email field is required!.",toastOpt)
           }
+
       } else if(action === "signUp") {
         if(userName.value !== ""&& 
            firstName.value !== ""&& 
@@ -79,8 +96,24 @@ export default () => {
            } else {
              toast.error("Please fill out all field.",toastOpt);
            }
+      } else if (action === "confirm") {
+        if (secret.value !== "") {
+          try {
+            const {
+              data: { confirmSecret: token }
+            } = await confirmSecretMutation();
+            if (token !== "" && token !== undefined) {
+              localLogInMutation({ variables: { token } });
+            } else {
+              throw Error();
+            }
+          } catch {
+            toast.error("Cant confirm secret,check again");
+          }
+        }
       }
-  }
+    };
+  
 
   return (
         <AuthPresenter 
@@ -92,6 +125,7 @@ export default () => {
          lastName={lastName}
          email={email}
          onSubmit={onSubmit}
+         secret={secret}
          /> 
   );
 };
