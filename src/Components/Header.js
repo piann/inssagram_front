@@ -4,6 +4,8 @@ import {Link, withRouter} from "react-router-dom";
 import Input from "./Input";
 import userInput from "../Hooks/useInput";
 import {HeartEmpty, User, Compass, Logo} from "./Icons";
+import { useQuery } from "react-apollo-hooks";
+import {gql} from "apollo-boost";
 
 
 const Header = styled.header`
@@ -60,11 +62,19 @@ const HeaderLink = styled(Link)`
   }
 `
 
+export const MY_NAME = gql`
+  {
+    getMyProfile {
+          userName
+    }
+  }
+`;
 
 export default withRouter(props => {
     
     const search = userInput("");
-
+    const {data} = useQuery(MY_NAME);
+    console.log(data);
     const onSearchSubmit = e =>{
         e.preventDefault();
         if(search.value!==""){
@@ -85,7 +95,7 @@ export default withRouter(props => {
                     </form>
                 </HeaderColumn>
                 <HeaderColumn>
-                    <HeaderLink to="/notifications">
+                    <HeaderLink to="/explore">
                         <Compass />
                         
                     </HeaderLink>
@@ -93,10 +103,13 @@ export default withRouter(props => {
                         <HeartEmpty />
                         
                     </HeaderLink>
-                    <HeaderLink to="/notifications">
-                        <User />
-                        
-                    </HeaderLink>
+                    {data.getMyProfile ?
+                    <HeaderLink to={data.getMyProfile.userName}>
+                        <User />    
+                    </HeaderLink> :
+                    <HeaderLink to="/#">
+                        <User />    
+                    </HeaderLink>} 
                 </HeaderColumn>
             
             </HeaderWrapper>

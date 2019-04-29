@@ -11,9 +11,9 @@ import Search from "../Routes/Search";
 
 const LoggedInRoutes = () => <Switch>
 <Route exact path="/" component={Feed}/>
-<Route path="/explore" component={Explore}/>
-<Route path="/search" component={Search}/>
-<Route path="/:username" component={Profile}/>
+<Route exact path="/explore" component={Explore}/>
+<Route exact path="/search" component={Search}/>
+<Route exact path="/:username" component={Profile}/>
 </Switch>
 
 const LoggedOutRoutes = () => <Switch>
