@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import Input from "./Input";
 import userInput from "../Hooks/useInput";
-import {HeartEmpty, User, Compass} from "./Icons";
+import {HeartEmpty, User, Compass, Logo} from "./Icons";
+
 
 const Header = styled.header`
     ${props => props.theme.whiteBox}
@@ -60,19 +61,26 @@ const HeaderLink = styled(Link)`
 `
 
 
-export default () => {
-
+export default withRouter(props => {
+    
     const search = userInput("");
+
+    const onSearchSubmit = e =>{
+        e.preventDefault();
+        if(search.value!==""){
+            props.history.push(`/search?term=${search.value}`)
+        }
+    }
     return(
         <Header>
             <HeaderWrapper>
                 <HeaderColumn>
                 <Link to="/">
-                    <img src="https://www.showcasecinemas.co.uk/images/insider-logo.svg" width="55" height="55" alt=""/>
+                    <Logo/>
                 </Link>
                 </HeaderColumn>
                 <HeaderColumn>
-                    <form>
+                    <form onSubmit={onSearchSubmit}>
                         <SearchInput {...search} placeholder="search" maxLength={15}/>
                     </form>
                 </HeaderColumn>
@@ -94,4 +102,4 @@ export default () => {
             </HeaderWrapper>
         </Header>
     )
-}
+});
