@@ -29,7 +29,12 @@ const HeaderWrapper = styled.div`
 `
 
 const HeaderColumn = styled.div`
-    margin-left : 10px;
+    margin-left :10px;
+
+    &:first-child {
+    margin-right:6vw;
+    }
+
     &:nth-child(2) {
     justify-self: center;
     
@@ -43,6 +48,7 @@ const SearchInput = styled(Input)`
     
     padding: 0px;
     height:30px;
+    width:230px;
     text-align: center;
     font-size:14px;
     border-radius:3px;
@@ -50,13 +56,18 @@ const SearchInput = styled(Input)`
         opacity:0.75;
         font-weight:200;
     }
-    
+    @media only screen and (max-width: 600px)
+    {
+    width:100px;
+    font-size:12px;
+    }
+
     
 
-`
+`;
 
 const HeaderLink = styled(Link)`
-  margin-right:8px;
+  margin-right:13px;
   &:not(:last-child){
       margin-right:min(15px,5vw);
   }

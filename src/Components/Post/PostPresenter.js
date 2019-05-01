@@ -6,9 +6,11 @@ import TextareaAutosize from "react-autosize-textarea";
 import {Link} from "react-router-dom";
 import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 
+
+
 const Post = styled.div`
   ${props => props.theme.whiteBox};
-  width: 100%;
+  width: 80vw;
   max-width: 600px;
   user-select: none;
   margin-bottom: 25px;
@@ -46,7 +48,8 @@ const Files = styled.div`
 const File = styled.div`
   max-width: 100%;
   width: 100%;
-  height: 600px;
+  height: 0;
+  padding-top:100%;
   position: absolute;
   top: 0;
   background-image: url(${props => props.src});
