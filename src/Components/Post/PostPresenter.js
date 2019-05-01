@@ -36,7 +36,7 @@ const Location = styled.span`
 
 const Files = styled.div`
   position: relative;
-  padding-bottom: 10;
+  padding-bottom: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -47,11 +47,12 @@ const File = styled.div`
   max-width: 100%;
   width: 100%;
   height: 600px;
-  top:0;
+  position: absolute;
+  top: 0;
   background-image: url(${props => props.src});
   background-size: cover;
   background-position: center;
-  opacity: 1;//${props => (props.showing ? 1 : 0)};
+  opacity: ${props => (props.showing ? 1 : 0)};
   transition: opacity 0.5s linear;
 `;
 
@@ -120,7 +121,8 @@ export default ({user:{userName, avatar},
     onKeyPress,
     comments,
     selfComments,
-    caption}) => {
+    caption,
+    }) => {
     
     console.log(files);
     return(

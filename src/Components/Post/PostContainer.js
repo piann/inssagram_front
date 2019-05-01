@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
@@ -16,6 +16,19 @@ const PostContainer = ({
 }) =>{
     const [isLikedState, setIsLiked] = useState(isLiked);
     const [likeCountState, setLikeCount] = useState(likeCount);
+    const [currentItem, setCurrentItem] = useState(0);
+    
+    const slide = () => {
+        const totalFiles = files.length;
+        if (currentItem === totalFiles - 1) {
+          setTimeout(() => setCurrentItem(0), 2000);
+        } else {
+          setTimeout(() => setCurrentItem(currentItem + 1), 2000);
+        }
+      };
+    useEffect(()=>{
+        slide();
+    }, [currentItem]);
     const comment = useInput("");
     
     return <PostPresenter 
@@ -30,6 +43,7 @@ const PostContainer = ({
     location={location}
     caption={caption}
     createdAt={createdAt}
+    currentItem={currentItem}
     />;
     
 }
