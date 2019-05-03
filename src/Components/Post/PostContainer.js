@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { useMutation } from "react-apollo-hooks";
+import { useMutation} from "react-apollo-hooks";
 import PropTypes from "prop-types";
 import useInput from "../../Hooks/useInput";
 import PostPresenter from "./PostPresenter";
-import {TOGGLE_LIKE} from "./PostQueries";
-
+import {TOGGLE_LIKE, ADD_COMMENT} from "./PostQueries";
+import {toast} from "react-toastify"
 
 const PostContainer = ({
     id,
@@ -17,14 +17,17 @@ const PostContainer = ({
     caption,
     createdAt
 }) =>{
+    const comment = useInput("");
     const [isLikedState, setIsLiked] = useState(isLiked);
     const [likeCountState, setLikeCount] = useState(likeCount);
     const [currentItem, setCurrentItem] = useState(0);
+    const [currentComments, setCurrentComments] = useState([]);
     const toggleLikeMutation = useMutation(TOGGLE_LIKE,{
         variables: {
           postId: id,
         }
     });
+    const addCommentMutation = useMutation(ADD_COMMENT);
     const slide = () => {
         const totalFiles = files.length;
         if (currentItem === totalFiles - 1) {
@@ -36,7 +39,7 @@ const PostContainer = ({
     useEffect(()=>{
         slide();
     }, [currentItem]);
-    const comment = useInput("");
+    
     const toggleLike = () => {
         
         if(isLikedState){
@@ -47,10 +50,32 @@ const PostContainer = ({
         setIsLiked(!isLikedState);
         toggleLikeMutation();
         
-      ;
+      
     }
 
-
+    const onKeyPress = async ev => {
+        const { which } = ev;
+        if (which === 13) {
+          ev.preventDefault();
+          
+          if(comment.value!==""){
+              const savedComment = comment.value;
+              comment.setValue("");
+              try {
+                  const {
+                      data :{addComment}
+                    } = await addCommentMutation({variables:{
+                        postId:id,
+                        text:savedComment
+                    }});
+                    setCurrentComments([...currentComments, addComment]);
+                    
+                } catch(e) {
+                    toast.error("Can't send comment");
+                }
+            }
+        }
+    }
 
     return <PostPresenter 
     user={user}
@@ -59,6 +84,7 @@ const PostContainer = ({
     isLiked={isLikedState}
     comments={comments}
     newComment={comment}
+    currentComments={currentComments}
     setIsLiked={setIsLiked}
     setLikeCount={setLikeCount}
     location={location}
@@ -66,6 +92,7 @@ const PostContainer = ({
     createdAt={createdAt}
     currentItem={currentItem}
     toggleLike={toggleLike}
+    onKeyPress={onKeyPress}
     />;
     
 }
@@ -91,7 +118,7 @@ PostContainer.propTypes = {
       text: PropTypes.string.isRequired,
       user: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired
+        userName: PropTypes.string.isRequired
       }).isRequired
     })
   ).isRequired,

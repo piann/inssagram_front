@@ -10,7 +10,7 @@ import { HeartFull, HeartEmpty, Comment as CommentIcon } from "../Icons";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
-  width: 80vw;
+  width: 95vw;
   max-width: 600px;
   user-select: none;
   margin-bottom: 25px;
@@ -123,11 +123,11 @@ export default ({user:{userName, avatar},
     toggleLike,
     onKeyPress,
     comments,
-    selfComments,
+    currentComments,
     caption,
     }) => {
     
-    console.log(files);
+    console.log(comments);
     return(
 
     <Post>
@@ -165,13 +165,14 @@ export default ({user:{userName, avatar},
       </Caption>
       {comments.length!==0 && (
         <Comments>
+        
           {comments.map(comment => (
             <Comment key={comment.id}>
               <FatText text={comment.user.userName} />
               {comment.text}
             </Comment>
           ))}
-          {selfComments.map(comment => (
+          {currentComments.map(comment => (
             <Comment key={comment.id}>
               <FatText text={comment.user.userName} />
               {comment.text}
