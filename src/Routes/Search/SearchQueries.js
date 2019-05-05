@@ -11,6 +11,7 @@ query search($term:String!){
         likeCount
     }
     searchUser(term:$term){
+        id
         avatar
         userName
         isFollowing
