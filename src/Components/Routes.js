@@ -13,7 +13,7 @@ const LoggedInRoutes = () => <Switch>
 <Route exact path="/" component={Feed}/>
 <Route exact path="/explore" component={Explore}/>
 <Route exact path="/search" component={Search}/>
-<Route exact path="/:username" component={Profile}/>
+<Route exact path="/:userName" component={Profile}/>
 </Switch>
 
 const LoggedOutRoutes = () => <Switch>

@@ -127,7 +127,8 @@ export default ({user:{userName, avatar},
     caption,
     }) => {
     
-    console.log(comments);
+    
+    
     return(
 
     <Post>

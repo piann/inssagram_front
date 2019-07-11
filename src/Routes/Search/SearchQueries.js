@@ -8,7 +8,9 @@ query search($term:String!){
         files{
             url
         }
+        id
         likeCount
+        commentCount
     }
     searchUser(term:$term){
         id

@@ -42,7 +42,7 @@ const SearchPresenter = ({searchKeyword, loading, data}) => {
     } else if ((searchKeyword === undefined)||searchKeyword.length ===1 ){
         return <FatText text={"Keyword should be longer than 1"}/>
     } else if (data){
-        console.log(data.searchUser)
+        console.log(data.searchPost)
         return (
             <Wrapper>
               
